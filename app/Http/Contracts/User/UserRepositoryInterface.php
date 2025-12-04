@@ -7,9 +7,9 @@ use App\Models\User;
 
 interface UserRepositoryInterface
 {
-    public function create(CreateUserDTO $dto): User;
+    public function create(CreateUserDTO $dto, array $additionalAttributes = []): User;
 
     public function findByEmail(string $email): User;
-    
+
     public function findById(int $id): User;
 }

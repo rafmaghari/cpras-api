@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Http\DTO\User\CreateUserDTO;
 use App\Models\User;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Http\Enums\Roles;
 
-class Register extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,6 +35,7 @@ class Register extends FormRequest
                 Rule::unique(User::class),
             ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['nullable', 'string', Rule::enum(Roles::class)],
         ];
     }
 
@@ -43,6 +45,7 @@ class Register extends FormRequest
             name: $this->name,
             email: $this->email,
             password: $this->password,
+            role: $this->role,
         );
     }
 }
