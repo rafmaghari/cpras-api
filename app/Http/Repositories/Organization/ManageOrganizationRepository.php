@@ -34,6 +34,7 @@ class ManageOrganizationRepository implements ManageOrganizationRepositoryInterf
             'organization_id' => $organizationId,
             'role' => $role,
         ]);
+        $user->refresh();
 
         return $organization;
     }

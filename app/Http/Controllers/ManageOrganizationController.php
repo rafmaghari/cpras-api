@@ -14,6 +14,8 @@ class ManageOrganizationController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewUsers', $request->user());
+
         $users = $this->manageOrganizationService->paginate(
             $request->per_page ?? 10,
             $request->filter ?? []
@@ -24,6 +26,8 @@ class ManageOrganizationController extends Controller
 
     public function addUserToOrganization(RegisterRequest $request)
     {
+        $this->authorize('addUser', $request->user());
+
         $organization = $this->manageOrganizationService->addUserToOrganization(
             $request->toDTO()
         );
@@ -33,6 +37,8 @@ class ManageOrganizationController extends Controller
 
     public function removeUserFromOrganization(Request $request)
     {
+        $this->authorize('removeUser', $request->user());
+
         $organization = $this->manageOrganizationService->removeUserFromOrganization(
             $request->organization_id,
             $request->user_id
